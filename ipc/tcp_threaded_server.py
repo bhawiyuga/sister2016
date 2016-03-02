@@ -28,7 +28,7 @@ try :
 	while True :
 		conn, addr = sock.accept()
 		t = ServerThread(conn, addr)
-		t.start)(
+		t.start()
 except KeyboardInterrupt :
 	sock.close()
 
