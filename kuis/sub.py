@@ -1,9 +1,13 @@
 # Import library paho-mqtt
 import paho.mqtt.client as mqtt
-import json
+import sys
+
+poli = "Umum"
+if len(sys.argv) > 1 :
+	poli = sys.argv[1]
 
 # Inisiasi mqtt client
-mqttc = mqtt.Client("sub1", clean_session=False)
+mqttc = mqtt.Client()
 
 # Inisiasi callback function
 def handle_message_masuk(mqttc, obj, msg):
@@ -13,11 +17,10 @@ def handle_message_masuk(mqttc, obj, msg):
 mqttc.on_message = handle_message_masuk
 
 # Buat koneksi ke broker
-mqttc.connect("10.34.8.21", 1883)
+mqttc.connect("127.0.0.1", 1883)
 
 # Subscribe dengan topik tertentu
-mqttc.subscribe("filkom/sensor/suhu/1", qos=0)
+mqttc.subscribe("poli/"+poli, qos=0)
 
 # Looping subscriber
 mqttc.loop_forever()
-
